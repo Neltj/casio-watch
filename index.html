@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Casio Watch - Time & Weather</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="watch-container">
+        <!-- Tasti laterali -->
+        <div class="watch-button button-top-left" id="lightBtn" title="Luce Manuale"></div>
+        <div class="watch-button button-bottom-left" id="modeBtn" title="Modalità Ora"></div>
+        <div class="watch-button button-top-right" id="weatherBtn" title="Modalità Meteo GPS"></div>
+        <div class="watch-button button-bottom-right" id="setBtn"></div>
+        
+        <!-- Corpo centrale -->
+        <div class="watch-body">
+            <div class="watch-brand">CASIO</div>
+            <div class="watch-model">ILLUMINATOR / WEATHER</div>
+            
+            <div class="watch-screen-border">
+                <div class="watch-screen" id="watchScreen">
+                    <!-- Lucetta -->
+                    <div class="light-bulb" id="lightBulb"></div>
+                    
+                    <!-- Display Orologio -->
+                    <div id="timeMode" class="screen-mode active">
+                        <div class="date-display" id="dateDisplay">LUN 01 GEN</div>
+                        <div class="time-display" id="timeDisplay">00:00:00</div>
+                    </div>
+
+                    <!-- Display Meteo -->
+                    <div id="weatherMode" class="screen-mode">
+                        <div class="weather-top" id="weatherLocation">--</div>
+                        <div class="weather-main">
+                            <span class="weather-icon" id="weatherIcon">☀</span>
+                            <span class="weather-temp" id="weatherTemp">--°</span>
+                        </div>
+                        <div class="weather-loading" id="weatherLoading">PREMI TASTO IN ALTO A DX</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="watch-labels">
+                <span>WATER RESIST</span>
+                <span>MODE/WEATHER</span>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #2c3e50;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.watch-container {
+    position: relative;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+/* Responsiveness for all devices */
+@media (max-width: 400px), (max-height: 500px) {
+    .watch-container {
+        transform: scale(0.85);
+    }
+}
+@media (max-width: 320px) {
+    .watch-container {
+        transform: scale(0.7);
+    }
+}
+
+/* Pulsanti laterali */
+.watch-button {
+    position: absolute;
+    width: 12px;
+    height: 35px;
+    background: linear-gradient(to right, #777, #ccc);
+    border: 2px solid #222;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+/* Animazione alla pressione */
+.button-top-left { 
+    top: 90px; left: 10px; 
+    border-top-left-radius: 8px; border-bottom-left-radius: 8px; border-right: none; 
+}
+.button-bottom-left { 
+    bottom: 90px; left: 10px; 
+    border-top-left-radius: 8px; border-bottom-left-radius: 8px; border-right: none; 
+}
+.button-top-right { 
+    top: 90px; right: 10px; 
+    border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-left: none; 
+}
+.button-bottom-right { 
+    bottom: 90px; right: 10px; 
+    border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-left: none; 
+}
+
+/* Attiva l'effetto di rimpicciolimento dei pulsanti al click */
+.button-top-left:active, .button-bottom-left:active { left: 13px; width: 9px; }
+.button-top-right:active, .button-bottom-right:active { right: 13px; width: 9px; }
+
+
+/* Corpo dell'orologio */
+.watch-body {
+    background: linear-gradient(145deg, #444, #1a1a1a);
+    width: 320px;
+    height: 380px;
+    border-radius: 60px;
+    box-shadow: 15px 15px 35px rgba(0,0,0,0.6), inset 2px 2px 8px rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 4px solid #111;
+    z-index: 2;
+}
+
+.watch-brand {
+    color: #fff;
+    font-weight: bold;
+    font-size: 26px;
+    letter-spacing: 3px;
+    margin-bottom: 2px;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.watch-model {
+    color: #3498db;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+/* Bordo protettivo dello schermo */
+.watch-screen-border {
+    background-color: #000;
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: inset 1px 1px 5px rgba(255,255,255,0.2);
+}
+
+/* Schermo LCD */
+.watch-screen {
+    background-color: #9cb3a8;
+    width: 250px;
+    height: 130px;
+    border-radius: 8px;
+    box-shadow: inset 3px 3px 10px rgba(0,0,0,0.4);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    color: #1a251e;
+    overflow: hidden;
+    transition: background-color 0.2s;
+}
+
+/* Effetto fosfori spenti */
+.watch-screen::before {
+    content: "88:88:88";
+    position: absolute;
+    bottom: 25px;
+    color: rgba(26, 37, 30, 0.05); /* Più leggero per non disturbare il testo */
+    font-size: 54px;
+    z-index: 1;
+    display: flex;
+}
+
+/* Modalità Schermi Multipli */
+.screen-mode {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.screen-mode.active {
+    display: flex;
+}
+
+/* Lucetta LED interna */
+.light-bulb {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #555;
+    transition: background-color 0.1s, box-shadow 0.1s;
+    z-index: 3;
+}
+
+.light-bulb.on {
+    background-color: #00ffcc;
+    box-shadow: 0 0 25px 15px rgba(0, 255, 204, 0.4);
+}
+
+.watch-screen.illuminated {
+    background-color: #a4ecd6;
+}
+
+/* Stili Tempo */
+.date-display {
+    font-size: 20px;
+    align-self: flex-end;
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+.time-display {
+    font-size: 54px;
+    line-height: 1;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+}
+
+/* Stili Meteo */
+.weather-top {
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.weather-icon {
+    font-size: 38px;
+    filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.1));
+}
+
+.weather-temp {
+    font-size: 48px;
+    line-height: 1;
+}
+
+.weather-loading {
+    font-size: 11px;
+    margin-top: 10px;
+    color: #1a251e;
+    opacity: 0.8;
+}
+
+.watch-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 230px;
+    margin-top: 25px;
+    color: #999;
+    font-size: 11px;
+    font-weight: bold;
+}
