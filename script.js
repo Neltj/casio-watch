@@ -47,8 +47,7 @@ function triggerLight() {
     }, 2000);
 }
 
-// Luce ogni 10 secondi
-setInterval(triggerLight, 10000);
+// Il timer luce automatica ogni 10 secondi è stato rimosso per il tema Megadeth
 
 // Azione Pulsante Luce (Top Left)
 document.getElementById('lightBtn').addEventListener('click', triggerLight);
@@ -117,4 +116,88 @@ weatherBtn.addEventListener('click', () => {
     } else {
         loadingElem.textContent = 'GPS NON SUPPORTATO';
     }
+});
+
+// --- MUSIC PLAYER LOGIC ---
+const audioPlayer = document.getElementById('metalAudio');
+const playerStatus = document.getElementById('playerStatus');
+const trackBtns = document.querySelectorAll('.track-btn');
+const stopBtn = document.getElementById('setBtn');
+
+// Cache per evitare chiamate ripetute all'API
+const previewCache = {};
+
+async function playTrack(term, btnElement) {
+    let previewUrl = previewCache[term];
+
+    // Se stiamo cliccando esattamente la stessa traccia che è già caricata
+    if (previewUrl && audioPlayer.src === previewUrl) {
+        if (!audioPlayer.paused) {
+            // Metti in pausa
+            audioPlayer.pause();
+            playerStatus.textContent = 'PLAYBACK PAUSED';
+            btnElement.classList.remove('playing');
+        } else {
+            // Riprendi riproduzione
+            audioPlayer.play();
+            playerStatus.textContent = 'PLAYING: 30 SEC PREVIEW';
+            btnElement.classList.add('playing');
+        }
+        return; // Interrompi qui, non ricaricare la traccia
+    }
+
+    // Altrimenti, è una traccia nuova: ferma tutto e vai
+    trackBtns.forEach(b => b.classList.remove('playing'));
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+    
+    playerStatus.textContent = 'LOADING TRACK...';
+    btnElement.classList.add('playing');
+    
+    try {
+        if (!previewUrl) {
+            // Usa iTunes Search API per ottenere 30 secondi di anteprima gratuita delle canzoni dei Megadeth
+            const response = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&limit=1&entity=song`);
+            const data = await response.json();
+            
+            if (data.results && data.results.length > 0) {
+                previewUrl = data.results[0].previewUrl;
+                previewCache[term] = previewUrl; // Salva in cache
+            } else {
+                throw new Error("Track not found");
+            }
+        }
+        
+        audioPlayer.src = previewUrl;
+        audioPlayer.volume = 0.5; // Volume al 50%
+        await audioPlayer.play();
+        
+        playerStatus.textContent = 'PLAYING: 30 SEC PREVIEW';
+        
+    } catch (error) {
+        playerStatus.textContent = 'ERROR LOADING AUDIO';
+        btnElement.classList.remove('playing');
+    }
+}
+
+// Aggiungi gli eventi ai rispettivi bottoni delle canzoni
+trackBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const term = btn.getAttribute('data-track');
+        playTrack(term, btn);
+    });
+});
+
+// Il pulsante in base a destra (SET) ora funge da "Stop"
+stopBtn.addEventListener('click', () => {
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+    trackBtns.forEach(b => b.classList.remove('playing'));
+    playerStatus.textContent = 'AUDIO PLAYER: STOPPED';
+});
+
+// Quando la traccia finisce
+audioPlayer.addEventListener('ended', () => {
+    trackBtns.forEach(b => b.classList.remove('playing'));
+    playerStatus.textContent = 'AUDIO FINISHED';
 });

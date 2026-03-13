@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Casio Watch - Time & Weather</title>
+    <title>Megadeth Watch - Rust in Peace</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Font stile metal classico invece di Creepster -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Wallpoet&family=Teko:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="watch-container">
-        <!-- Tasti laterali -->
-        <div class="watch-button button-top-left" id="lightBtn" title="Luce Manuale"></div>
-        <div class="watch-button button-bottom-left" id="modeBtn" title="Modalità Ora"></div>
-        <div class="watch-button button-top-right" id="weatherBtn" title="Modalità Meteo GPS"></div>
-        <div class="watch-button button-bottom-right" id="setBtn"></div>
+        <!-- Tasti laterali rugginosi -->
+        <div class="watch-button button-top-left" id="lightBtn" title="Nuclear Light"></div>
+        <div class="watch-button button-bottom-left" id="modeBtn" title="Countdown to Extinction"></div>
+        <div class="watch-button button-top-right" id="weatherBtn" title="Tornado of Souls (Weather)"></div>
+        <div class="watch-button button-bottom-right" id="setBtn" title="Stop Music"></div>
         
-        <!-- Corpo centrale -->
+        <!-- Corpo centrale Metal -->
         <div class="watch-body">
-            <div class="watch-brand">CASIO</div>
-            <div class="watch-model">ILLUMINATOR / WEATHER</div>
+            <div class="watch-brand">MEGADETH</div>
+            <div class="watch-model">RUST IN PEACE</div>
             
             <div class="watch-screen-border">
                 <div class="watch-screen" id="watchScreen">
-                    <!-- Lucetta -->
+                    <!-- Lucetta rossa -->
                     <div class="light-bulb" id="lightBulb"></div>
                     
                     <!-- Display Orologio -->
@@ -38,15 +39,24 @@
                             <span class="weather-icon" id="weatherIcon">☀</span>
                             <span class="weather-temp" id="weatherTemp">--°</span>
                         </div>
-                        <div class="weather-loading" id="weatherLoading">PREMI TASTO IN ALTO A DX</div>
+                        <div class="weather-loading" id="weatherLoading"></div>
                     </div>
                 </div>
             </div>
             
-            <div class="watch-labels">
-                <span>WATER RESIST</span>
-                <span>MODE/WEATHER</span>
+            <!-- Music Player / Cinghia -->
+            <div class="music-player">
+                <div class="player-status" id="playerStatus">AUDIO PLAYER: STOPPED</div>
+                <div class="music-buttons">
+                    <button class="track-btn" data-track="Holy Wars... The Punishment Due Megadeth">HOLY WARS</button>
+                    <button class="track-btn" data-track="Symphony of Destruction Megadeth">SYMPHONY</button>
+                    <button class="track-btn" data-track="Tornado of Souls Megadeth">TORNADO</button>
+                    <button class="track-btn" data-track="Peace Sells Megadeth">PEACE SELLS</button>
+                </div>
             </div>
+            
+            <!-- Elemento Audio invisibile -->
+            <audio id="metalAudio"></audio>
         </div>
     </div>
     <script src="script.js"></script>
